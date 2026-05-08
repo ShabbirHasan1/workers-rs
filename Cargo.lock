@@ -4057,6 +4057,7 @@ dependencies = [
  "serde-wasm-bindgen",
  "serde_json",
  "serde_urlencoded",
+ "strum",
  "tokio",
  "tokio-postgres",
  "trybuild",
