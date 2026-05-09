@@ -503,7 +503,7 @@ checksum = "7c74b8349d32d297c9134b8c88677813a227df8f779daa29bfc29c183fe3dca6"
 
 [[package]]
 name = "container-echo"
-version = "0.3.2"
+version = "0.3.3"
 dependencies = [
  "axum",
  "tokio",
@@ -2504,7 +2504,7 @@ dependencies = [
 
 [[package]]
 name = "signal-test"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "num-bigint",
  "num-integer",
@@ -4019,7 +4019,7 @@ dependencies = [
 
 [[package]]
 name = "worker"
-version = "0.8.2"
+version = "0.8.3"
 dependencies = [
  "async-trait",
  "axum",
@@ -4053,7 +4053,7 @@ dependencies = [
 
 [[package]]
 name = "worker-build"
-version = "0.8.2"
+version = "0.8.3"
 dependencies = [
  "anyhow",
  "binary-install",
@@ -4100,7 +4100,7 @@ dependencies = [
 
 [[package]]
 name = "worker-macros"
-version = "0.8.2"
+version = "0.8.3"
 dependencies = [
  "async-trait",
  "proc-macro2",
@@ -4148,7 +4148,7 @@ dependencies = [
 
 [[package]]
 name = "worker-sys"
-version = "0.8.2"
+version = "0.8.3"
 dependencies = [
  "cfg-if",
  "js-sys",
@@ -4158,7 +4158,7 @@ dependencies = [
 
 [[package]]
 name = "workers-rs-benchmark"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "futures-util",
  "serde",
