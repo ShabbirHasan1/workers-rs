@@ -1,7 +1,8 @@
+use futures_util::TryStreamExt;
 use wasm_bindgen::JsCast;
 
 pub use crate::bindings::email::*;
-use crate::{EnvBinding, Result};
+use crate::{ByteStream, EnvBinding, Result};
 
 impl EnvBinding for SendEmail {
     const TYPE_NAME: &'static str = "SendEmail";
@@ -17,16 +18,34 @@ impl EnvBinding for SendEmail {
     }
 }
 
+impl ForwardableEmailMessage {
+    /// Stream of the raw email content.
+    pub fn raw_byte_stream(&self) -> ByteStream {
+        self.raw().into()
+    }
+
+    /// Convenience: collect the raw email content into a `Vec<u8>`.
+    pub async fn raw_bytes(&self) -> Result<Vec<u8>> {
+        Into::<ByteStream>::into(self.raw())
+            .try_fold(Vec::new(), |mut bytes, mut chunk| async move {
+                bytes.append(&mut chunk);
+                Ok(bytes)
+            })
+            .await
+    }
+}
+
 #[cfg(test)]
 mod send_check {
-    // `SendEmail` is `Send` automatically — wasm-bindgen makes `JsValue`
-    // `Send + Sync` and every extern `pub type` in `email.rs` carries that
-    // through. This compile-time check guards against an upstream
-    // regression.
-    use super::SendEmail;
+    // `SendEmail` and `InboundEmail` are `Send` automatically —
+    // wasm-bindgen makes `JsValue` `Send + Sync` and every extern `pub type`
+    // carries that through. This compile-time check guards against an
+    // upstream regression.
+    use super::{ForwardableEmailMessage, SendEmail};
     fn _assert_send<T: Send>() {}
     #[allow(dead_code)]
     fn _check() {
         _assert_send::<SendEmail>();
+        _assert_send::<ForwardableEmailMessage>();
     }
 }
